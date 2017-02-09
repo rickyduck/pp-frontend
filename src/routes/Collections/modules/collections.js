@@ -1,27 +1,50 @@
 // ------------------------------------
 // Constants
 // ------------------------------------
-// export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
-// export const COUNTER_DOUBLE_ASYNC = 'COUNTER_DOUBLE_ASYNC'
+export const COLLECTIONS_FILTER = 'COLLECTIONS_FILTER'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-
-/*  This is a thunk, meaning it is a function that immediately
-    returns a function for lazy evaluation. It is incredibly useful for
-    creating async actions, especially when combined with redux-thunk! */
-
+// export function filter (filter, state) {
+//   var newState = state;
+//   const filteredItems = state.items.filter((item) => {
+//     return item.type == filter
+//   })
+//   return {
+//     type    : COUNTER_INCREMENT,
+//     payload : {
+//       filteredItems
+//     }
+//   }
+// }
+export const runFilter = (filter) => {
+  return (dispatch, getState) => {
+    const { collections } = getState();
+    debugger;
+    const filteredItems = collections.items.filter((item) => {
+      return item.type == filter
+    })
+    dispatch({
+      type: COLLECTIONS_FILTER,
+      filteredItems: filteredItems,
+      filter,
+    });
+  };
+}
 
 export const actions = {
-
-
+  runFilter: (filter) => runFilter(filter)
 }
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
+  [COLLECTIONS_FILTER] : (state, action) => {
+    debugger;
+    return {...state, filteredItems: action.filteredItems, filter: action.filter}
+  }
   // [COUNTER_INCREMENT]    : (state, action) => state + action.payload,
   // [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2
 }
@@ -29,7 +52,8 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = {
+var initialState = {
+  filter: "design",
   items: [
     {
       name: "Batemans - Yellow",
@@ -69,6 +93,10 @@ const initialState = {
     }
   ]
 }
+initialState.filteredItems = initialState.items.filter((item) => {
+  return item.type == initialState.filter
+})
+initialState
 export default function collectionsReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
   console.log(state);

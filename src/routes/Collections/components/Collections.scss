@@ -3,3 +3,13 @@ nav.filter a {
   padding: 0 10px 0;
   color: black;
 }
+
+ul.collection-list li {
+  display: block;
+  width: 40%;
+  padding: 2% 5%;
+  float: left;
+  img {
+    max-width:40%;
+  }
+}

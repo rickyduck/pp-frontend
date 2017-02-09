@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { runFilter } from '../modules/collections'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -15,16 +16,17 @@ import Collections from '../components/Collections'
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    items : state.collections.items,
+    items : state.collections.filteredItems,
+    filter: state.collections.filter,
     types : state.collections.items.map((item) => {
       return item.type
-    }) 
+    })
   }
 }
-
 const mapDispatchToProps = {
-
+  runFilter: (filter) => runFilter(filter)
 }
+
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 
