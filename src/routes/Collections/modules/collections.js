@@ -54,44 +54,8 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 var initialState = {
   filter: "design",
-  items: [
-    {
-      name: "Batemans - Yellow",
-      featured_image: "EO-00105.jpg",
-      sku: "EO 00105",
-      collections_link: "http://www.elizabethockfordwallpapers.co.uk/collection-book-birchgrove-gardens.php?ver=1.0.0",
-      product_details: `Design: Straight<br/>
-  Repeat Size: 65cm<br/>
-  Roll Dimensions: 52cm x 10.05m`,
-      made_in: "EU",
-      icons: null,
-      type: 'design'
-    },
-    {
-      name: "Batemans - Colourway",
-      featured_image: "EO-00105.jpg",
-      sku: "EO 00105",
-      collections_link: "http://www.elizabethockfordwallpapers.co.uk/collection-book-birchgrove-gardens.php?ver=1.0.0",
-      product_details: `Design: Straight<br/>
-  Repeat Size: 65cm<br/>
-  Roll Dimensions: 52cm x 10.05m`,
-      made_in: "EU",
-      icons: null,
-      type: 'colourway'
-    },
-    {
-      name: "Batemans - Panel",
-      featured_image: "EO-00105.jpg",
-      sku: "EO 00105",
-      collections_link: "http://www.elizabethockfordwallpapers.co.uk/collection-book-birchgrove-gardens.php?ver=1.0.0",
-      product_details: `Design: Straight<br/>
-  Repeat Size: 65cm<br/>
-  Roll Dimensions: 52cm x 10.05m`,
-      made_in: "EU",
-      icons: null,
-      type: 'panel'
-    }
-  ]
+  items: null,
+  filteredItems: null
 }
 initialState.filteredItems = initialState.items.filter((item) => {
   return item.type == initialState.filter
