@@ -22,12 +22,28 @@ export const COLLECTIONS_FILTER = 'COLLECTIONS_FILTER'
 //   }
 // }
 
+const getProductTypes = (products) => {
+  return products.filter((product) => {
+
+    if(product.product_type) {
+        return true;
+    } else {
+      return false;
+    }
+
+  }).map((product) => {
+    return product.product_type
+  })
+}
+
 export const getAllProducts = () => {
   return (dispatch, getState) => {
     const theApi = new api()
     theApi.getProducts(products => {
+      const types = getProductTypes(products)
       dispatch({
         type: RECEIVE_PRODUCTS,
+        types,
         products
       })
     })
@@ -38,15 +54,15 @@ export const runFilter = (filter) => {
     const { collections } = getState();
     //debugger;
     const filteredItems = collections.items.filter((item) => {
-      return item.type == filter
+      if(item.product_type) {
+        return item.product_type.slug == filter
+      }
+      return false
     })
-    const types = filteredItems.items.map((item) => {
-      return item.type
-    })
+
     dispatch({
       type: COLLECTIONS_FILTER,
       filteredItems: filteredItems,
-      types: types,
       filter,
     });
   };
@@ -65,8 +81,7 @@ const ACTION_HANDLERS = {
     return {...state, filteredItems: action.filteredItems, filter: action.filter}
   },
   [RECEIVE_PRODUCTS] : (state, action) => {
-    debugger;
-    return {...state, items: action.products}
+    return {...state, filteredItems: action.products, items: action.products, types: action.types}
   }
   // [COUNTER_INCREMENT]    : (state, action) => state + action.payload,
   // [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2

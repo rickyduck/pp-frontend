@@ -9,7 +9,7 @@ import CollectionsRoute from './Collections'
 export const createRoutes = (store) => ({
   path        : '/',
   component   : CoreLayout,
-  indexRoute  : Home,
+  indexRoute  : CollectionsRoute(store),
   childRoutes : [
     CollectionsRoute(store)
   ]

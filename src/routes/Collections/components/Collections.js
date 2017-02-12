@@ -14,9 +14,10 @@ class Collections extends React.Component {
   }
   getNav() {
     const navItems = this.props.types.map((type) => {
-      let boundItemClick = this.handleClick.bind(this, type);
 
-      return <a href='#' onClick={boundItemClick}>{type}</a>
+      let boundItemClick = this.handleClick.bind(this, type.slug);
+
+      return <a href='#' onClick={boundItemClick}>{type.name}</a>
     });
     return <div>{navItems}</div>
   }
@@ -28,7 +29,6 @@ class Collections extends React.Component {
   }
   render() {
     return <div style={{ margin: '0 auto' }} >
-      <h2>Items: {this.props.items.length}</h2>
       <nav className="filter">
         {this.getNav()}
       </nav>

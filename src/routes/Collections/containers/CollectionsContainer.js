@@ -14,6 +14,7 @@ import Collections from '../components/Collections'
 
 const mapStateToProps = (state) => {
   console.log(state);
+  
   return {
     items : state.collections.filteredItems,
     filter: state.collections.filter,
