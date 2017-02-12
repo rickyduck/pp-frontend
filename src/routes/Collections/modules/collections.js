@@ -1,6 +1,9 @@
+import api from '../../../api/products'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
+export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
 export const COLLECTIONS_FILTER = 'COLLECTIONS_FILTER'
 
 // ------------------------------------
@@ -18,22 +21,39 @@ export const COLLECTIONS_FILTER = 'COLLECTIONS_FILTER'
 //     }
 //   }
 // }
+
+export const getAllProducts = () => {
+  return (dispatch, getState) => {
+    const theApi = new api()
+    theApi.getProducts(products => {
+      dispatch({
+        type: RECEIVE_PRODUCTS,
+        products
+      })
+    })
+  }
+}
 export const runFilter = (filter) => {
   return (dispatch, getState) => {
     const { collections } = getState();
-    debugger;
+    //debugger;
     const filteredItems = collections.items.filter((item) => {
       return item.type == filter
+    })
+    const types = filteredItems.items.map((item) => {
+      return item.type
     })
     dispatch({
       type: COLLECTIONS_FILTER,
       filteredItems: filteredItems,
+      types: types,
       filter,
     });
   };
 }
 
 export const actions = {
+  getAllProducts: () => getAllProducts(),
   runFilter: (filter) => runFilter(filter)
 }
 
@@ -42,8 +62,11 @@ export const actions = {
 // ------------------------------------
 const ACTION_HANDLERS = {
   [COLLECTIONS_FILTER] : (state, action) => {
-    debugger;
     return {...state, filteredItems: action.filteredItems, filter: action.filter}
+  },
+  [RECEIVE_PRODUCTS] : (state, action) => {
+    debugger;
+    return {...state, items: action.products}
   }
   // [COUNTER_INCREMENT]    : (state, action) => state + action.payload,
   // [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2
@@ -54,13 +77,12 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 var initialState = {
   filter: "design",
-  items: null,
-  filteredItems: null
+  items: [],
+  filteredItems: [],
+  types: []
 }
-initialState.filteredItems = initialState.items.filter((item) => {
-  return item.type == initialState.filter
-})
-initialState
+
+
 export default function collectionsReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
   console.log(state);

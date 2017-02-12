@@ -6,6 +6,9 @@ class Collections extends React.Component {
   constructor(props) {
     super(props);
   }
+  componentWillMount() {
+    this.props.getAllProducts()
+  }
   handleClick(filter="design") {
     this.props.runFilter(filter);
   }
@@ -36,7 +39,7 @@ class Collections extends React.Component {
 }
 
 Collections.propTypes = {
-  items     : React.PropTypes.array.isRequired
+  //items     : React.PropTypes.array.isRequired
 }
 
 export default Collections

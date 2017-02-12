@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { runFilter } from '../modules/collections'
+import { runFilter, getAllProducts } from '../modules/collections'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -12,19 +12,17 @@ import Collections from '../components/Collections'
     Keys will be passed as props to presentational components. Here we are
     implementing our wrapper around increment; the component doesn't care   */
 
-
 const mapStateToProps = (state) => {
   console.log(state);
   return {
     items : state.collections.filteredItems,
     filter: state.collections.filter,
-    types : state.collections.items.map((item) => {
-      return item.type
-    })
+    types : state.collections.types
   }
 }
 const mapDispatchToProps = {
-  runFilter: (filter) => runFilter(filter)
+  runFilter: (filter) => runFilter(filter),
+  getAllProducts: () => getAllProducts()
 }
 
 
