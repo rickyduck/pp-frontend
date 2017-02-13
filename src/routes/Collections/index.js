@@ -1,4 +1,5 @@
 import { injectReducer } from '../../store/reducers'
+import { getAllProducts } from '../../store/collections'
 
 export default (store) => ({
   /*  Async getComponent is only invoked when route matches   */
@@ -13,6 +14,7 @@ export default (store) => ({
 
       /*  Add the reducer to the store on key 'counter'  */
       injectReducer(store, { key: 'collections', reducer })
+      store.dispatch(getAllProducts())
 
       /*  Return getComponent   */
       cb(null, Collections)

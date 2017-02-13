@@ -14,7 +14,6 @@ class AppContainer extends Component {
 
   render () {
     const { routes, store } = this.props
-    debugger;
     return (
       <Provider store={store}>
         <div style={{ height: '100%' }}>

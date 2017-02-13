@@ -7,7 +7,7 @@ class Collections extends React.Component {
     super(props);
   }
   componentWillMount() {
-    this.props.getAllProducts()
+  //  this.props.getAllProducts()
   }
   handleClick(filter="design") {
     this.props.runFilter(filter);

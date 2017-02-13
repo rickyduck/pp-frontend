@@ -86,12 +86,12 @@ export const runFilter = (filter) => {
   };
 }
 
-export const selectProduct = (id) => {
+export const selectProduct = (slug) => {
   return (dispatch, getState) => {
     const { collections } = getState()
     //debugger;
-    const filteredItems = collection.items.filter((product) => {
-      return product.id === "id"
+    const filteredItems = collections.items.filter((product) => {
+      return product.slug === slug
     })
 
     dispatch({
@@ -116,6 +116,9 @@ const ACTION_HANDLERS = {
   },
   [RECEIVE_PRODUCTS] : (state, action) => {
     return {...state, filteredItems: action.filteredItems, items: action.products, types: action.types}
+  },
+  [SELECT_PRODUCT] : (state, action) => {
+    return {...state, selectedProduct: action.selectedProduct}
   }
   // [COUNTER_INCREMENT]    : (state, action) => state + action.payload,
   // [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2
