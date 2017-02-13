@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { runFilter, getAllProducts } from '../modules/collections'
+import { runFilter, getAllProducts } from '../../../store/collections'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -14,7 +14,7 @@ import Collections from '../components/Collections'
 
 const mapStateToProps = (state) => {
   console.log(state);
-  
+  debugger;
   return {
     items : state.collections.filteredItems,
     filter: state.collections.filter,

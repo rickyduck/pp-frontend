@@ -1,15 +1,46 @@
-nav.filter a {
-  display:inline-block;
-  padding: 0 10px 0;
-  color: black;
+@import '../../../styles/variables/colors';
+
+nav.filter {
+  padding-bottom: 10px;
+  border-bottom: solid 1px lighten($greyText, 20%);
+
+  a {
+    font-size: 18px;
+    display:inline-block;
+    padding: 0 15px 0;
+    border-right: solid 1px lighten($greyText, 10%);
+    color: $greyText;
+
+    &:last-of-type {
+      border-right: none;
+    }
+    &.active {
+      font-weight:bold;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
-ul.collection-list li {
-  display: block;
-  width: 40%;
-  padding: 2% 5%;
-  float: left;
-  img {
-    max-width:40%;
+ul.collection-list {
+  padding: 0 0 0 0;
+  margin: 0;
+
+  li {
+    display: block;
+    width: 185px;
+    margin: 30px 0 0 0;
+    padding: 15px 15px 0 0;
+    float: left;
+    font-size: 18px;
+    color: $greyText;     
+
+    img {
+      width: 100%;
+    }
+    &:last-of-type {
+      padding: 0;
+    }
   }
 }

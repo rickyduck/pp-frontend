@@ -17,14 +17,14 @@ class Collections extends React.Component {
 
       let boundItemClick = this.handleClick.bind(this, type.slug);
 
-      return <a href='#' onClick={boundItemClick}>{type.name}</a>
+      return <a href='#' className={this.props.filter === type.slug ? "active" : "inactive"} onClick={boundItemClick}>{type.name}</a>
     });
     return <div>{navItems}</div>
   }
   getCollectionList() {
-    const listItems = this.props.items.map((item) => {
+    const listItems = this.props.items.length ? this.props.items.map((item) => {
       return <CollectionListItem item={item} />
-    })
+    }) : null
     return <ul className="collection-list">{listItems}</ul>
   }
   render() {
