@@ -34,10 +34,12 @@ const applyFilter = (products, filter) => {
 
 
 const getProductTypes = (products) => {
-  return products.filter((product) => {
+  let types = [];
 
-    if(product.product_type) {
-        return true;
+  return products.filter((product) => {
+    if(product.product_type && !types.includes(product.product_type.slug)) {
+      types.push(product.product_type.slug);
+      return true;
     } else {
       return false;
     }
@@ -132,7 +134,7 @@ var initialState = {
   items: [],
   filteredItems: [],
   types: [],
-  selectedProduct: null
+  selectedProduct: {}
 }
 
 

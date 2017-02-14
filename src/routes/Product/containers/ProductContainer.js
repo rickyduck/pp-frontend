@@ -14,11 +14,9 @@ import Product from '../components/Product'
 //
 const mapStateToProps = (state) => {
   console.log(state);
-
+  debugger
   return {
-    items : state.collections.filteredItems,
-    filter: state.collections.filter,
-    types : state.collections.types
+    product: state.collections.selectedProduct
   }
 }
 const mapDispatchToProps = {

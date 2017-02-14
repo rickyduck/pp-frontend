@@ -6,6 +6,7 @@ export default class api {
   constructor() {
     this.apiUrl = "http://pp.dev2.squaremediauk.com"
     this.apiEndpoint = "/wp-json/wp/v2"
+    this.apiImagePath = "/wp-content/uploads/"
     this.timeout = 100
   }
   getProducts(cb) {
