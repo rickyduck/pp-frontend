@@ -13,8 +13,6 @@ import Collections from '../components/Collections'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapStateToProps = (state) => {
-  console.log(state);
-  debugger;
   return {
     items : state.collections.filteredItems,
     filter: state.collections.filter,

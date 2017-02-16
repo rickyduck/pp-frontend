@@ -23,6 +23,8 @@ export const SELECT_PRODUCT = 'SELECT_PRODUCT'
 //   }
 // }
 
+
+//INTERNAL FUNCTIONS
 const applyFilter = (products, filter) => {
   return products.filter((item) => {
     if(item.product_type) {
@@ -50,9 +52,12 @@ const getProductTypes = (products) => {
     if(a.slug < b.slug) return -1;
     if(a.slug > b.slug) return 1;
     return 0;
-})
+  })
 }
 
+
+
+//EXPORT ACTIONS
 export const getAllProducts = () => {
   return (dispatch, getState) => {
 
@@ -88,17 +93,28 @@ export const runFilter = (filter) => {
   };
 }
 
-export const selectProduct = (slug) => {
+export const selectProduct = (key, value) => {
   return (dispatch, getState) => {
     const { collections } = getState()
     //debugger;
-    const filteredItems = collections.items.filter((product) => {
-      return product.slug === slug
+    const selectedProduct = collections.items.filter((product) => {
+      return product[key] === value
+    })[0]
+
+    const colourways = collections.items.filter((product) => {
+      return selectedProduct.colourways.includes(product.id)
     })
+
+    const complementaryProducts = collections.items.filter((product) => {
+      return selectedProduct.complementary_products.includes(product.id)
+    })
+
 
     dispatch({
       type: SELECT_PRODUCT,
-      selectedProduct: filteredItems[0]
+      selectedProduct: selectedProduct,
+      complementaryProducts: complementaryProducts,
+      colourways: colourways
     });
   };
 }
@@ -120,7 +136,7 @@ const ACTION_HANDLERS = {
     return {...state, filteredItems: action.filteredItems, items: action.products, types: action.types}
   },
   [SELECT_PRODUCT] : (state, action) => {
-    return {...state, selectedProduct: action.selectedProduct}
+    return {...state, selectedProduct: action.selectedProduct, complementaryProducts: action.complementaryProducts, colourways: action.colourways}
   }
   // [COUNTER_INCREMENT]    : (state, action) => state + action.payload,
   // [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2

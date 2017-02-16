@@ -1,9 +1,39 @@
+@import '../styles/variables/colors';
+
+
 .core-layout__viewport {
   padding-top: 4rem;
 }
 .container {
   width: 1020px;
 }
+.clear {
+  overflow: auto;
+
+}
 
 
 .icon { width: 25px; }
+
+nav.filter {
+  padding-bottom: 10px;
+  border-bottom: solid 1px lighten($greyText, 20%);
+
+  a {
+    font-size: 18px;
+    display:inline-block;
+    padding: 0 15px 0;
+    border-right: solid 1px lighten($greyText, 10%);
+    color: $greyText;
+
+    &:last-of-type {
+      border-right: none;
+    }
+    &.active {
+      font-weight:bold;
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}

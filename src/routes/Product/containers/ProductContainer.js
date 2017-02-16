@@ -13,10 +13,11 @@ import Product from '../components/Product'
 //     implementing our wrapper around increment; the component doesn't care   */
 //
 const mapStateToProps = (state) => {
-  console.log(state);
-  debugger
+  
   return {
-    product: state.collections.selectedProduct
+    product: state.collections.selectedProduct,
+    complementaryProducts: state.collections.complementaryProducts,
+    colourways: state.collections.colourways
   }
 }
 const mapDispatchToProps = {

@@ -1,5 +1,5 @@
 import React from 'react'
-import CollectionListItem from './CollectionListItem.js'
+import ProductListItem from '../../../components/ProductList/ProductListItem'
 import './Collections.scss'
 
 class Collections extends React.Component {
@@ -23,7 +23,7 @@ class Collections extends React.Component {
   }
   getCollectionList() {
     const listItems = this.props.items.length ? this.props.items.map((item) => {
-      return <CollectionListItem item={item} />
+      return <ProductListItem item={item} />
     }) : null
     return <ul className="collection-list">{listItems}</ul>
   }

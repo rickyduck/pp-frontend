@@ -15,7 +15,7 @@ export default (store) => ({
 
       /*  Add the reducer to the store on key 'counter'  */
       injectReducer(store, { key: 'collections', reducer })
-      store.dispatch(selectProduct(nextState.params.slug))
+      store.dispatch(selectProduct("slug", nextState.params.slug))
       cb(null, Product)
 
       /*  Return getComponent   */

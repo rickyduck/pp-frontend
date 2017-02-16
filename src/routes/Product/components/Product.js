@@ -1,10 +1,15 @@
 import React from 'react'
 import api from '../../../api/products'
+import ProductListItem from '../../../components/ProductList/ProductListItem'
+
 import './Product.scss'
 class Product extends React.Component {
   constructor(props) {
     super(props)
     this.api = new api()
+    this.state = {
+      selectedNav: 'complementary-designs'
+    }
   }
   // componentWillMount() {
   //   this.props.getAllProducts()
@@ -27,6 +32,11 @@ class Product extends React.Component {
   //   }) : null
   //   return <ul className="collection-list">{listItems}</ul>
   // }
+  selectNav(type) {
+    this.setState({
+      selectedNav: type
+    })
+  }
   productImage() {
     if(this.props.product.media) {
       return <img className="main-image" src={this.api.apiUrl + this.api.apiImagePath + this.props.product.media.file} />
@@ -34,21 +44,74 @@ class Product extends React.Component {
       return null
     }
   }
+  renderAssociatedNav() {
+    var navLis = []
+    if(this.props.complementaryProducts.length){
+      let boundItemClick = this.selectNav.bind(this, 'complementary-designs');
+      navLis.push(<a href='#' className={this.state.selectedNav === 'complementary-designs' ? "active" : "inactive"} onClick={boundItemClick}>Complementary Products</a>)
+    }
+    if(this.props.colourways.length){
+      let boundItemClick = this.selectNav.bind(this, 'available-colours');
+      navLis.push(<a href='#' className={this.state.selectedNav === 'available-colours' ? "active" : "inactive"} onClick={boundItemClick}>Available Colours</a>)
+    }
+    return <nav className="filter">{navLis}</nav>
+  }
+
+  renderAssociates() {
+
+    var listItems = null
+    if(this.props.complementaryProducts.length && this.state.selectedNav === 'complementary-designs'){
+      listItems = this.props.complementaryProducts.map((item) => {
+        return <ProductListItem item={item} />
+      })
+    }
+    if(this.props.colourways.length && this.state.selectedNav === 'available-colours'){
+      listItems = this.props.colourways.map((item) => {
+        return <ProductListItem item={item} />
+      })
+    }
+    return <ul className="collection-list">{listItems}</ul>
+  }
+
+  renderProductDetails() {
+    const product = this.props.product
+    var productDetails = null
+    debugger
+    switch(product.product_type.slug) {
+      case "designs":
+        productDetails = <div>
+          <div>{product.wallpaper_code}</div>
+          <div>Design: {product.design}</div>
+          <div>Repeat Size: {product.repeat_design}</div>
+          <div>Roll Dimensions: {product.roll_dimensions}</div>
+          <div>Made in: {product.made_in}</div>
+        </div>
+      break
+    }
+    return productDetails
+  }
+
   render() {
 
     return <div style={{ margin: '0 auto' }} >
 
-
+      <div className="clear">
       {this.productImage()}
       <div className="product-info">
+        <h2 dangerouslySetInnerHTML={{ __html: this.props.product.title }}></h2>
         <section className="text-details">
-          <h2 dangerouslySetInnerHTML={{ __html: this.props.product.title }}></h2>
-          <div>{this.props.product.sku}</div>
+          {this.renderProductDetails()}
         </section>
         <section className="icons">
           <img className="icon" src="/images/icons/icon-lightfast.png" /> Lightfast
         </section>
       </div>
+      </div>
+      <div className="associated-products" style={{ margin: '20px auto' }} >
+        {this.renderAssociatedNav()}
+        {this.renderAssociates()}
+      </div>
+
     </div>
   }
 }

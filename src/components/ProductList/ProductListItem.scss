@@ -1,0 +1,21 @@
+@import '../styles/variables/colors';
+
+
+li.product-list-item {
+  display: block;
+  width: 185px;
+  margin: 30px 15px 0 0;
+  padding: 15px 0 0 0;
+  float: left;
+  font-size: 18px;
+  color: $greyText;
+
+  a { color: $greyText;}
+  img {
+    width: 185px;
+    height: 185px;
+  }
+  &:last-of-type {
+    padding: 15px 0 0 0;
+  }
+}
