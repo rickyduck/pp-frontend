@@ -112,7 +112,13 @@ class Product extends React.Component {
     switch(product.product_type.slug) {
       case "fabrics":
         product.care.forEach((careIcon) => {
-          icons.push(<li><img width="50" src={'/images/icons/fabrics/care/' + prefix + careIcon + '.png'} /></li>)
+          icons.push(<li><img width="40" src={'/images/icons/fabrics/care/' + prefix + careIcon + '.png'} /></li>)
+        })
+      break
+      case "designs":
+        product.icons.forEach((icon) => {
+          let parsedIcon = icon.replace(/\s+/g, '-').toLowerCase()
+          icons.push(<li><img width="40" src={'/images/icons/designs/' + prefix + parsedIcon + '.png'} /> {icon}</li>)
         })
       break
     }
