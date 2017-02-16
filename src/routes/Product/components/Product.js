@@ -76,19 +76,47 @@ class Product extends React.Component {
   renderProductDetails() {
     const product = this.props.product
     var productDetails = null
-    debugger
     switch(product.product_type.slug) {
       case "designs":
         productDetails = <div>
+          <h3>WALLPAPER DETAILS</h3>
           <div>{product.wallpaper_code}</div>
           <div>Design: {product.design}</div>
           <div>Repeat Size: {product.repeat_design}</div>
           <div>Roll Dimensions: {product.roll_dimensions}</div>
           <div>Made in: {product.made_in}</div>
+          <div>Coordinates: {product.coordinates}</div>
+        </div>
+      break
+      case "fabrics":
+        productDetails = <div>
+          <h3>FABRIC DETAILS</h3>
+          <div>Width: {product.width}</div>
+          <div>Pattern Repeat: {product.design}</div>
+          <div>Made in: {product.made_in}</div>
+          <div>Composition: {product.repeat_design}</div>
+          {
+            (product.martindale !== "") ? <div>Martindale: {product.martindale}</div> : ""
+          }
+
         </div>
       break
     }
     return productDetails
+  }
+
+  renderProductIcons() {
+    const prefix = "EO-"
+    const product = this.props.product
+    var icons = []
+    switch(product.product_type.slug) {
+      case "fabrics":
+        product.care.forEach((careIcon) => {
+          icons.push(<li><img width="50" src={'/images/icons/fabrics/care/' + prefix + careIcon + '.png'} /></li>)
+        })
+      break
+    }
+    return <ul className="icons-holder">{icons}</ul>
   }
 
   render() {
@@ -103,7 +131,7 @@ class Product extends React.Component {
           {this.renderProductDetails()}
         </section>
         <section className="icons">
-          <img className="icon" src="/images/icons/icon-lightfast.png" /> Lightfast
+          {this.renderProductIcons()}
         </section>
       </div>
       </div>

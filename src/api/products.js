@@ -11,23 +11,20 @@ export default class api {
   }
   getProducts(cb) {
 
-    ///SO MUCH HEAVY LIFTING TO STRIP DOWN THEAPI
-    // const apiUrl = this.apiUrl
-    // const apiEndpoint = this.apiEndpoint
-    // var ajax = new Ajax(
-    //     {
-    //         url: `${apiUrl+apiEndpoint}/products-api`,
-    //         method: 'GET',
-    //         headers: {
-    //             'X-Requested-With': 'XMLHttpRequest'
-    //         }
-    //     }
-    // )
-    // ajax.on("success", (event) => {
-    //   debugger;
-    //   cb(event)
-    // })
-    // ajax.send()
+    //SO MUCH HEAVY LIFTING TO STRIP DOWN THEAPI
+    const apiUrl = this.apiUrl
+    const apiEndpoint = this.apiEndpoint
+    var ajax = new Ajax(
+        {
+            url: `${apiUrl+apiEndpoint}/products-api`,
+            method: 'GET'
+        }
+    )
+    ajax.on("success", (event) => {
+      debugger;
+      cb(event)
+    })
+    ajax.send()
     function* entries(obj) {
        for (let key of Object.keys(obj)) {
          yield [key, obj[key]];
