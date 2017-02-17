@@ -9,15 +9,14 @@ class Collections extends React.Component {
   componentWillMount() {
   //  this.props.getAllProducts()
   }
-  handleClick(filter="design") {
+  handleClick(e, filter="design") {
+    e.preventDefault();
     this.props.runFilter(filter);
   }
   getNav() {
     const navItems = this.props.types.map((type) => {
 
-      let boundItemClick = this.handleClick.bind(this, type.slug);
-
-      return <a href='#' className={this.props.filter === type.slug ? "active" : "inactive"} onClick={boundItemClick}>{type.name}</a>
+      return <a href='#' className={this.props.filter === type.slug ? "active" : "inactive"} onClick={(e) => this.handleClick(e, type.slug)}>{type.name}</a>
     });
     return <div>{navItems}</div>
   }

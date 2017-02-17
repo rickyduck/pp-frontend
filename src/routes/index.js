@@ -7,7 +7,7 @@ import ProductRoute from './Product'
     PlainRoute objects to build route definitions.   */
 
 export const createRoutes = (store) => ({
-  path        : '*',
+  path        : ':collection',
   component   : CoreLayout,
   indexRoute  : CollectionsRoute(store),
   childRoutes : [

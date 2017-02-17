@@ -58,12 +58,12 @@ const getProductTypes = (products) => {
 
 
 //EXPORT ACTIONS
-export const getAllProducts = () => {
+export const getAllProducts = (collection = '') => {
   return (dispatch, getState) => {
 
     const { collections } = getState()
     const theApi = new api()
-    theApi.getProducts(products => {
+    theApi.getProducts(collection, (products) => {
       const types = getProductTypes(products)
       const filteredItems = applyFilter(products, collections.filter)
 

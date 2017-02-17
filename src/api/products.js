@@ -9,7 +9,7 @@ export default class api {
     this.apiImagePath = "/wp-content/uploads/"
     this.timeout = 100
   }
-  getProducts(cb) {
+  getProducts(collectionPath = '', cb) {
 
     //SO MUCH HEAVY LIFTING TO STRIP DOWN THEAPI
     const apiUrl = this.apiUrl
@@ -35,12 +35,23 @@ export default class api {
             media: product.better_featured_image ? product.better_featured_image.media_details : null,
             slug: product.slug
         }
+
         for (let [key, value] of entries(product.acf)) {
+
           refinedProduct[key] = value
            // do something with key|value
         }
 
         return refinedProduct;
+      }).filter((product) => {
+        debugger
+        var collectionFilter = collectionPath ? false : true
+        for (let [key, value] of entries(product)) {
+          if ((key) === "collection" && value.length && collectionPath === value[0].post_name) {
+            collectionFilter = true
+          }
+        }
+        return collectionFilter;
       })
       cb(refinedProducts)
     })
@@ -48,21 +59,32 @@ export default class api {
 
 
     console.log(_products);
-    // var refinedProducts = _products.map((product) => {
-    //   var refinedProduct = {
-    //       id: product.id,
-    //       title: product.title.rendered,
-    //       product_type: product.pure_taxonomies.product_types ? product.pure_taxonomies.product_types[0] : null,
-    //       media: product.better_featured_image ? product.better_featured_image.media_details : null,
-    //       slug: product.slug
-    //   }
-    //   for (let [key, value] of entries(product.acf)) {
-    //     refinedProduct[key] = value
-    //      // do something with key|value
-    //   }
-    //
-    //   return refinedProduct;
-    // })
+  //   var refinedProducts = _products.map((product) => {
+  //     var refinedProduct = {
+  //         id: product.id,
+  //         title: product.title.rendered,
+  //         product_type: product.pure_taxonomies.product_types ? product.pure_taxonomies.product_types[0] : null,
+  //         media: product.better_featured_image ? product.better_featured_image.media_details : null,
+  //         slug: product.slug
+  //     }
+   //
+  //     for (let [key, value] of entries(product.acf)) {
+   //
+  //       refinedProduct[key] = value
+  //        // do something with key|value
+  //     }
+   //
+  //     return refinedProduct;
+  //   }).filter((product) => {
+  //     debugger
+  //     var collectionFilter = collectionPath ? false : true
+  //     for (let [key, value] of entries(product)) {
+  //       if ((key) === "collection" && value.length && collectionPath === value[0].post_name) {
+  //         collectionFilter = true
+  //       }
+  //     }
+  //     return collectionFilter;
+  //   })
   //  setTimeout(() => cb(refinedProducts), this.timeout)
 
   }

@@ -11,9 +11,14 @@ class Product extends React.Component {
       selectedNav: 'complementary-designs'
     }
   }
-  // componentWillMount() {
+  componentWillMount() {
   //   this.props.getAllProducts()
-  // }
+    $(".react-hide").hide();
+  }
+  componentWillUnmount() {
+  //   this.props.getAllProducts()
+    $(".react-hide").show();
+  }
   // handleClick(filter="design") {
   //   this.props.runFilter(filter);
   // }
@@ -32,7 +37,8 @@ class Product extends React.Component {
   //   }) : null
   //   return <ul className="collection-list">{listItems}</ul>
   // }
-  selectNav(type) {
+  selectNav(e, type) {
+    e.preventDefault()
     this.setState({
       selectedNav: type
     })
@@ -47,12 +53,10 @@ class Product extends React.Component {
   renderAssociatedNav() {
     var navLis = []
     if(this.props.complementaryProducts.length){
-      let boundItemClick = this.selectNav.bind(this, 'complementary-designs');
-      navLis.push(<a href='#' className={this.state.selectedNav === 'complementary-designs' ? "active" : "inactive"} onClick={boundItemClick}>Complementary Products</a>)
+      navLis.push(<a href='#' className={this.state.selectedNav === 'complementary-designs' ? "active" : "inactive"} onClick={(e) => this.selectNav(e, 'complementary-designs')}>Complementary Products</a>)
     }
     if(this.props.colourways.length){
-      let boundItemClick = this.selectNav.bind(this, 'available-colours');
-      navLis.push(<a href='#' className={this.state.selectedNav === 'available-colours' ? "active" : "inactive"} onClick={boundItemClick}>Available Colours</a>)
+      navLis.push(<a href='#' className={this.state.selectedNav === 'available-colours' ? "active" : "inactive"} onClick={(e) => this.selectNav(e, 'available-colours')}>Available Colours</a>)
     }
     return <nav className="filter">{navLis}</nav>
   }
